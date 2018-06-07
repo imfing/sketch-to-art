@@ -35,6 +35,7 @@
       </svg>
     </a>
 
+    <div class="spacer"></div>
     <footer>
       Made with ❤ by Fing
     </footer>
@@ -56,6 +57,14 @@ export default {
   font-size: 16px;
   text-align: center;
   color: #2c3e50;
+  
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.spacer {
+  flex: 1;
 }
 
 header {
@@ -98,30 +107,14 @@ body {
   .github-corner .octo-arm {
     animation: octocat-wave 560ms ease-in-out;
   }
-
-  footer {
-    position: relative;
-    padding: 1rem;
-    background-color: #efefef;
-    text-align: center;
-    color: #9fa9aa;
-    font-weight: 200;
-    font-size: 1rem;
-  }
 }
 
-@media only screen and (min-width: 800px) {
-  footer {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-    background-color: #efefef;
-    text-align: center;
-    color: #9fa9aa;
-    font-weight: 200;
-    font-size: 1rem;
-  }
+footer {
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+  color: #9fa9aa;
+  font-weight: 200;
+  font-size: 1rem;
 }
 </style>
