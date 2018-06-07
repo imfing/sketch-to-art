@@ -5,37 +5,36 @@
         About
       </h1>
     </div>
-    <div class="content">
-      <p>
-        Sketch2Art is a brand new way of creating artwork with AI technology.
-      </p>
-      <div>
-        <h2>
-          How it Works
-        </h2>
-        <p>This project is based on
-          <a href="https://arxiv.org/abs/1611.07004">pix2pix</a> and
-          <a href="https://arxiv.org/abs/1703.06868">adain</a>
-        </p>
-      </div>
-      <div>
-
-      </div>
+    <div class="content markdown-body">
+      <about></about>
     </div>
   </div>
 </template>
 
 <script>
+import About from "../assets/about.md"
+
 export default {
-  name: "AboutPage"
+  name: "AboutPage",
+
+  components: {
+    About
+  },
+
+  data() {
+    return {};
+  }
 };
 </script>
 
-<style scoped>
+<style>
+@import './../assets/github-markdown.css';
+
 .content {
   max-width: 740px;
   margin: 0 auto;
-  padding: 2rem 2.5rem;
+  padding: 0rem 1rem;
   text-align: left;
 }
+
 </style>
