@@ -1,5 +1,5 @@
 uploads/*
 output/*/*
-models/*
+models/*/*
 __pycache__
 !.gitkeep
