@@ -1,4 +1,4 @@
-**Sketch to Art** is a brand new way of creating artwork with **cutting-edge AI technology**.
+**Sketch to Art** helps you create artwork with **cutting-edge AI technology**.
 
 ---
 
@@ -36,3 +36,13 @@ Frontend is built with [Vue.js](https://vuejs.org/).
 Backend server is made with Python.
 
 Entire project is available on [Github](https://github.com/mtobeiyf/sketch-to-art).
+
+## Related Resources
+
+[pix2pix-tensorflow](https://github.com/affinelayer/pix2pix-tensorflow)
+
+[Neural-Style-Transfer-Papers](https://github.com/ycjing/Neural-Style-Transfer-Papers)
+
+[WCT-TF](https://github.com/eridgd/WCT-TF)
+
+![](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dip.imfing.com)

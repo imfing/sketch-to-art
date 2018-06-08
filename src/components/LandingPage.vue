@@ -57,6 +57,11 @@
           <span class="toggle"></span>
           <span>Toggle result</span>
         </button>
+        <button v-if="resultSrc"
+                class="btn"
+                @click="uploadToGallery">
+          <span>Upload to Gallery</span>
+        </button>
         <div v-if="resultSrc"
              class="hint">Right click or press long to save</div>
       </div>
@@ -79,6 +84,10 @@
 import DrawingBoard from "./DrawingBoard.vue";
 import ImageItem from "./ImageItem.vue";
 import axios from "axios";
+import Vue from "vue";
+import VueSwal from "vue-swal";
+
+Vue.use(VueSwal);
 
 const axiosPix =
   process.env.NODE_ENV === "development"
@@ -172,10 +181,10 @@ export default {
 
       console.log("Got drawing");
 
-      var container = this.$el.querySelector('.result-container');
-      container.scrollIntoView({behavior: "smooth"});
+      var container = this.$el.querySelector(".result-container");
+      container.scrollIntoView({ behavior: "smooth" });
       // container.scrollTop = container.scrollHeight;
-      
+
       // Build form data
       var pixData = new FormData();
       var styleData = new FormData();
@@ -230,6 +239,43 @@ export default {
       } else {
         this.resultSrc = this.resultPix;
       }
+    },
+
+    uploadToGallery() {
+      this.$swal({
+        text: "Save your work to public gallery?",
+        buttons: true
+      }).then(willUpload => {
+        if (willUpload) {
+          var uploadData = new FormData();
+          uploadData.append("id", this.sessionId);
+          // Display overlay
+          this.modalContent = "Saving...";
+          this.showWaitModal = true;
+
+          axiosStyle({
+            url: "/submitToGallery",
+            method: "POST",
+            data: uploadData,
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          })
+            .then(response => {
+              console.log(response.data);
+              this.showWaitModal = false;
+              this.$swal("Go to the gallery and check it out!", {
+                icon: "success"
+              });
+            })
+            .catch(function(response) {
+              this.modalContent = "Ooops, something wrong...";
+              setTimeout(function() {
+                this.showWaitModal = false;
+              }, 3000);
+            });
+        }
+      });
     }
   }
 };

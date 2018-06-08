@@ -27,7 +27,8 @@ export default {
       },
       width: "",
       height: "",
-      lineColor: "#000000"
+      lineColor: "#000000",
+      lineWidth: 2
     };
   },
 
@@ -51,7 +52,7 @@ export default {
         ctx.clearRect(0, 0, this.width, this.height);
         ctx.lineTo(this.currentMouse.x, this.currentMouse.y);
         ctx.strokeStyle = this.lineColor;
-        ctx.lineWidth = 1;
+        ctx.lineWidth = this.lineWidth;
         ctx.stroke();
       }
     },
