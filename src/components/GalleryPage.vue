@@ -42,7 +42,7 @@ export default {
       imgList: "",
       showList: "",
       showNum: 10,
-      showMore: true
+      showMore: false
     };
   },
 
@@ -51,6 +51,7 @@ export default {
       this.imgList = response.data;
       if (this.imgList.length > this.showNum) {
         this.showList = this.imgList.slice(0, this.showNum);
+        this.showMore = true;
       } else {
         this.showList = this.imgList;
       }

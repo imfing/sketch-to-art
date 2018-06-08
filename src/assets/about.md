@@ -39,10 +39,10 @@ Entire project is available on [Github](https://github.com/mtobeiyf/sketch-to-ar
 
 ## Related Resources
 
-[pix2pix-tensorflow](https://github.com/affinelayer/pix2pix-tensorflow)
+- [pix2pix-tensorflow](https://github.com/affinelayer/pix2pix-tensorflow)
 
-[Neural-Style-Transfer-Papers](https://github.com/ycjing/Neural-Style-Transfer-Papers)
+- [Neural-Style-Transfer-Papers](https://github.com/ycjing/Neural-Style-Transfer-Papers)
 
-[WCT-TF](https://github.com/eridgd/WCT-TF)
+- [WCT-TF](https://github.com/eridgd/WCT-TF)
 
 ![](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dip.imfing.com)
