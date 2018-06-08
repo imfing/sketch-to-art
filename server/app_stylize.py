@@ -10,16 +10,19 @@ import os
 import base64
 import json
 import re
+import time
+import glob
+import shutil
 from io import BytesIO
 from PIL import Image
 
 # Flask utils
 from flask import Flask, redirect, url_for, request, render_template, Response, send_file, make_response
 from gevent.pywsgi import WSGIServer
-# from flask_cors import CORS
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+# CORS(app)
 
 @app.route('/', methods=['GET'])
 def index():
@@ -27,7 +30,7 @@ def index():
 
 
 @app.route('/getStyleFromId', methods=['GET', 'POST'])
-def getPix():
+def getStyle():
     if request.method == 'POST':
         sessionId = request.form['id']
         styleId = request.form['style']
@@ -44,8 +47,41 @@ def getPix():
     return 'invalid request'
 
 
+@app.route('/getGalleryList', methods=['GET'])
+def getGalleryList():
+    galleryDir = './gallery'
+    files = [os.path.basename(x) for x in sorted(
+        glob.glob(os.path.join(galleryDir, '*.png')), reverse=True)]
+    return json.dumps(files)
+
+
+@app.route('/getGalleryImage/<filename>', methods=['GET'])
+def getGalleryImage(filename):
+    if os.path.exists('./gallery/'+filename):
+        with open('./gallery/'+filename, 'rb') as f:
+            return u"data:image/png;base64," + base64.b64encode(f.read()).decode('ascii')
+    return ''
+
+
+@app.route('/submitToGallery', methods=['GET', 'POST'])
+def submitToGallery():
+    if request.method == 'POST':
+        sessionId = request.form['id']
+
+        style_out = './output/style/'+sessionId+'.png'
+
+        if os.path.isfile(style_out):
+            timestr = time.strftime("%Y%m%d-%H%M%S")
+            shutil.copy2(style_out, './gallery/'+timestr+'.png')
+            return 'True'
+        else:
+            return 'False'
+
+    return 'submitToGallery'
+
+
 if __name__ == '__main__':
-    # app.run(port=5000, debug=True)
+    # app.run(port=5002, debug=True)
 
     # Serve the app with gevent
     print('Start serving style transfer at port 5002...')
