@@ -13,6 +13,7 @@
     "axios": "^0.18.0",
     "v-viewer": "^1.0.1",
     "vue": "^2.5.2",
+    "vue-js-toggle-button": "^1.2.3",
     "vue-router": "^3.0.1",
     "vue-swal": "^0.1.0"
   },

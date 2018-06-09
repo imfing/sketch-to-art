@@ -5356,6 +5356,10 @@ vue-hot-reload-api@^2.2.0:
   version "2.3.0"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.3.0.tgz#97976142405d13d8efae154749e88c4e358cf926"
 
+vue-js-toggle-button@^1.2.3:
+  version "1.2.3"
+  resolved "http://registry.npm.taobao.org/vue-js-toggle-button/download/vue-js-toggle-button-1.2.3.tgz#efc3309bf500ff5f84c5a8c3bea734b932cad191"
+
 vue-loader@^13.3.0:
   version "13.7.2"
   resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-13.7.2.tgz#f633f6393e905ffd730400f03c99353618c08fe8"
@@ -5385,6 +5389,10 @@ vue-md-loader@^1.0.0:
 vue-router@^3.0.1:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-3.0.1.tgz#d9b05ad9c7420ba0f626d6500d693e60092cc1e9"
+
+vue-slider-component@^2.7.1:
+  version "2.7.1"
+  resolved "http://registry.npm.taobao.org/vue-slider-component/download/vue-slider-component-2.7.1.tgz#d880ea92d883bb428fbcc67a86afe6b0d3a27621"
 
 vue-style-loader@^3.0.0, vue-style-loader@^3.0.1:
   version "3.1.2"
