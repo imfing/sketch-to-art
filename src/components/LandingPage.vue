@@ -39,7 +39,7 @@
                          :labels="{checked: 'More Style', unchecked: 'More Real'}"
                          :width="80"
                          :height="20"
-                         @change="!toggleReality" />
+                         @change="toggleReality" />
           <toggle-button :value="!highQuality"
                          :color="{checked: '#00a388', unchecked: '#9b59b6'}"
                          :sync="true"
