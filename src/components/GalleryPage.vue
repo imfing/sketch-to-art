@@ -109,7 +109,7 @@ export default {
   border-radius: 0.3em;
   color: white;
   padding: 0.5em 1em;
-  margin: 1em 0.5em;
+  margin: 0.5em;
   font-size: 1rem;
   font-family: inherit;
   font-weight: 400;

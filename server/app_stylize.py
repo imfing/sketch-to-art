@@ -24,6 +24,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 # CORS(app)
 
+
 @app.route('/', methods=['GET'])
 def index():
     return 'style transfer server running'
@@ -34,12 +35,24 @@ def getStyle():
     if request.method == 'POST':
         sessionId = request.form['id']
         styleId = request.form['style']
+        highReality = request.form['highReality']
+        highQuality = request.form['highQuality']
+
+        adain = False
+        alpha = 0.6
+        content_size = 256
+        if highReality == 'true':
+            adain = True
+            alpha = 0.8
+        if highQuality == 'true':
+            content_size = 512
 
         pix_out = './output/pix/'+sessionId+'.png'
         style_out = './output/style/'+sessionId+'.png'
 
         stylize.get_stylize_image(
-            pix_out, './styles/'+styleId+'.jpg', style_out)
+            pix_out, './styles/'+styleId+'.jpg', style_out,
+            content_size=content_size, alpha=alpha, adain=adain)
 
         with open(os.path.join(os.path.dirname(__file__), style_out), 'rb') as f:
             return u"data:image/png;base64," + base64.b64encode(f.read()).decode('ascii')

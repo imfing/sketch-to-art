@@ -31,6 +31,24 @@
           </div>
         </div>
         <div class="hint">Choose a style above</div>
+
+        <div class="options">
+          <toggle-button :value="!highReality"
+                         :color="{checked: '#cb8589', unchecked: '#0984e3'}"
+                         :sync="true"
+                         :labels="{checked: 'More Style', unchecked: 'More Real'}"
+                         :width="80"
+                         :height="20"
+                         @change="!toggleReality" />
+          <toggle-button :value="!highQuality"
+                         :color="{checked: '#00a388', unchecked: '#9b59b6'}"
+                         :sync="true"
+                         :labels="{checked: 'High Speed', unchecked: 'High Quality'}"
+                         :width="85"
+                         :height="20"
+                         @change="toggleQuality" />
+        </div>
+
         <button class="btn"
                 :disabled="submitDisable"
                 @click="submitDrawing">
@@ -86,8 +104,10 @@ import ImageItem from "./ImageItem.vue";
 import axios from "axios";
 import Vue from "vue";
 import VueSwal from "vue-swal";
+import ToggleButton from "vue-js-toggle-button";
 
 Vue.use(VueSwal);
+Vue.use(ToggleButton);
 
 const axiosPix =
   process.env.NODE_ENV === "development"
@@ -123,6 +143,9 @@ export default {
       ],
       selectedId: 1,
       sessionId: "",
+
+      highReality: false,
+      highQuality: false,
 
       showStyle: true,
       resultSrc: "",
@@ -192,6 +215,8 @@ export default {
       pixData.append("image", src);
       styleData.append("id", this.sessionId);
       styleData.append("style", this.selectedId);
+      styleData.append("highReality", this.highReality);
+      styleData.append("highQuality", this.highQuality);
 
       // Display overlay
       this.modalContent = "Waiting for a few seconds...";
@@ -230,6 +255,14 @@ export default {
             this.showWaitModal = false;
           }, 3000);
         });
+    },
+
+    toggleReality() {
+      this.highReality = !this.highReality;
+    },
+
+    toggleQuality() {
+      this.highQuality = !this.highQuality;
     },
 
     toggleResult() {
@@ -291,6 +324,10 @@ export default {
   margin: 1rem 2rem;
   flex-grow: 1;
   width: 35%;
+}
+
+.section .options .vue-js-switch {
+  margin: 0.5rem;
 }
 
 .image-container .image-flex {
@@ -398,7 +435,7 @@ img.selected {
   border-radius: 0.3em;
   color: white;
   padding: 0.5em 1em;
-  margin: 1em 0.5em;
+  margin: 0.5em;
   font-size: 1rem;
   font-family: inherit;
   font-weight: 400;

@@ -27,7 +27,7 @@ wct_model = WCT(checkpoints=checkpoints,
 
 
 def get_stylize_image(content_fullpath, style_fullpath, output_path,
-                      content_size=256, style_size=256, alpha=0.8,
+                      content_size=256, style_size=256, alpha=0.6,
                       swap5=False, ss_alpha=0.6, adain=False):
     content_img = get_img(content_fullpath)
     content_img = resize_to(content_img, content_size)
