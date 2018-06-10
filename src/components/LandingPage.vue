@@ -7,7 +7,8 @@
       <div class="section">
         <h3>Start drawing</h3>
         <div class="canvas-wrapper">
-          <drawing-board ref="canvas"></drawing-board>
+          <drawing-board ref="canvas"
+                         :enabled="!userContent"></drawing-board>
         </div>
         <form id="upload-file"
               method="post"
@@ -378,7 +379,7 @@ export default {
       reader.onload = e => {
         var canvas = document.querySelector("#canvas");
         var ctx = canvas.getContext("2d");
-        
+
         var w = canvas.width;
         var h = canvas.height;
         ctx.clearRect(0, 0, w, h);

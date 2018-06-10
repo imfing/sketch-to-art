@@ -12,6 +12,8 @@
 
 <script>
 export default {
+  props: ['enabled'],
+
   data: function() {
     return {
       mouse: {
@@ -46,10 +48,10 @@ export default {
 
   methods: {
     draw: function(event) {
-      if (this.mouse.down) {
+      if (this.mouse.down && this.enabled) {
         var c = document.getElementById("canvas");
         var ctx = c.getContext("2d");
-        // ctx.clearRect(0, 0, this.width, this.height);
+        ctx.clearRect(0, 0, this.width, this.height);
         ctx.lineCap = "round";
         ctx.lineTo(this.currentMouse.x, this.currentMouse.y);
         ctx.strokeStyle = this.lineColor;
@@ -128,6 +130,8 @@ export default {
     this.width = this.$el.clientWidth;
     // this.height = this.$el.clientHeight;
     this.height = this.width;
+
+    console.log(this.enabled)
   }
 };
 </script>
