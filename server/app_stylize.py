@@ -33,7 +33,6 @@ def index():
 @app.route('/stylize-with-data', methods=['GET', 'POST'])
 def stylize_with_data():
     if request.method == 'POST':
-        print(request.form)
         sessionId = request.form['id']
         styleId = request.form['style']
         highReality = request.form['highReality']
@@ -58,7 +57,7 @@ def stylize_with_data():
 
         if userStyle == 'true':
             style_data = re.sub('^data:image/.+;base64,', '', styleData)
-            image_style = Image.open(BytesIO(base64.b64decode(image_data)))
+            image_style = Image.open(BytesIO(base64.b64decode(style_data)))
             style_path = os.path.join(
                 './uploads', '{}_style.png'.format(sessionId))
             image_style.save(style_path)
