@@ -39,7 +39,7 @@
               <image-item :src="image.src"
                           :id="image.id"
                           :selected="selectedId"
-                          @clicked="onSelectImage"></image-item>
+                          @clicked="onSelectStyle"></image-item>
             </div>
           </div>
         </div>
@@ -105,7 +105,7 @@
                alt="">
         </div>
 
-        <button v-if="resultSrc"
+        <button v-if="showToggle"
                 class="btn"
                 @click="toggleResult">
           <span class="toggle"></span>
@@ -188,6 +188,7 @@ export default {
       highQuality: false,
 
       showStyle: true,
+      showToggle: false,
       resultSrc: "",
       resultPix: "",
       resultStyle: "",
@@ -224,7 +225,7 @@ export default {
       this.userContent = false;
     },
 
-    onSelectImage(id) {
+    onSelectStyle(id) {
       this.selectedId = id;
       this.submitDisable = false;
     },
@@ -260,6 +261,7 @@ export default {
       styleData.append("contentData", src);
       styleData.append("styleData", this.userStyleSrc);
 
+      // Use custom image
       if (this.userContent) {
         this.modalContent = "Stylizing your picture...";
         this.showWaitModal = true;
@@ -275,8 +277,10 @@ export default {
           this.showWaitModal = false;
           this.resultStyle = response.data;
           this.resultSrc = this.resultStyle;
+          this.showToggle = false;
         });
       } else {
+        // Use sketch
         this.modalContent = "Waiting for a few seconds...";
         this.showWaitModal = true;
 
@@ -306,6 +310,7 @@ export default {
             this.showWaitModal = false;
             this.resultStyle = response.data;
             this.resultSrc = this.resultStyle;
+            this.showToggle = true;
           });
       }
     },
@@ -340,7 +345,7 @@ export default {
           this.showWaitModal = true;
 
           axiosStyle({
-            url: "/submitToGallery",
+            url: "/submit-to-gallery",
             method: "POST",
             data: uploadData,
             headers: {
@@ -373,9 +378,11 @@ export default {
       reader.onload = e => {
         var canvas = document.querySelector("#canvas");
         var ctx = canvas.getContext("2d");
-
+        
         var w = canvas.width;
         var h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
         var img = new Image();
         img.onload = function() {
           ctx.drawImage(img, 0, 0, w, h);
@@ -606,9 +613,14 @@ input[type="file"] {
 }
 
 .upload-style img {
-  width: 150px;
-  height: 150px;
-  margin: 0.5rem;
+  width: 120px;
+  height: 120px;
+  margin: 0.2rem;
+  padding: 2px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+  transition: all 0.2s ease-in-out;
 }
 
 .upload-style .remove {
