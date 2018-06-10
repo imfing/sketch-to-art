@@ -242,23 +242,19 @@ export default {
       context.fillRect(0, 0, w, h);
 
       var src = canvas.toDataURL("image/png");
-
-      console.log("Got drawing");
-
       var container = this.$el.querySelector(".result-container");
       container.scrollIntoView({ behavior: "smooth" });
-      // container.scrollTop = container.scrollHeight;
 
       // Build form data
       var pixData = new FormData();
       var styleData = new FormData();
       pixData.append("id", this.sessionId);
       pixData.append("image", src);
+
       styleData.append("id", this.sessionId);
       styleData.append("style", this.selectedId);
       styleData.append("highReality", this.highReality);
       styleData.append("highQuality", this.highQuality);
-
       styleData.append("userContent", this.userContent);
       styleData.append("userStyle", this.userStyle);
       styleData.append("contentData", src);
@@ -285,7 +281,7 @@ export default {
         this.showWaitModal = true;
 
         axiosPix({
-          url: "/getPixFromData",
+          url: "/pix-translate-data",
           method: "POST",
           data: pixData,
           headers: {

@@ -76,24 +76,24 @@ def stylize_with_data():
     return ''
 
 
-@app.route('/getGalleryList', methods=['GET'])
-def getGalleryList():
+@app.route('/get-gallery-list', methods=['GET'])
+def get_gallery_list():
     galleryDir = './gallery'
     files = [os.path.basename(x) for x in sorted(
         glob.glob(os.path.join(galleryDir, '*.png')), reverse=True)]
     return json.dumps(files)
 
 
-@app.route('/getGalleryImage/<filename>', methods=['GET'])
-def getGalleryImage(filename):
+@app.route('/get-gallery-image/<filename>', methods=['GET'])
+def get_gallery_image(filename):
     if os.path.exists('./gallery/'+filename):
         with open('./gallery/'+filename, 'rb') as f:
             return u"data:image/png;base64," + base64.b64encode(f.read()).decode('ascii')
     return ''
 
 
-@app.route('/submitToGallery', methods=['GET', 'POST'])
-def submitToGallery():
+@app.route('/submit-to-gallery', methods=['GET', 'POST'])
+def submit_to_gallery():
     if request.method == 'POST':
         sessionId = request.form['id']
 
@@ -106,7 +106,7 @@ def submitToGallery():
         else:
             return 'False'
 
-    return 'submitToGallery'
+    return ''
 
 
 def get_style_params(highQuality, highReality):

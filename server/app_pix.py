@@ -26,8 +26,8 @@ def index():
     return 'pix2pix server running'
 
 
-@app.route('/getPixFromData', methods=['GET', 'POST'])
-def getPix():
+@app.route('/pix-translate-data', methods=['GET', 'POST'])
+def pix_translate_data():
     if request.method == 'POST':
         sessionId = request.form['id']
         imgBase64 = request.form['image']
@@ -45,7 +45,7 @@ def getPix():
         with open(os.path.join(os.path.dirname(__file__), pix_out), 'rb') as f:
             return u"data:image/png;base64," + base64.b64encode(f.read()).decode('ascii')
 
-    return 'invalid request'
+    return ''
 
 
 if __name__ == '__main__':

@@ -47,7 +47,7 @@ export default {
   },
 
   mounted: function() {
-    axiosStyle.get("/getGalleryList").then(response => {
+    axiosStyle.get("/get-gallery-list").then(response => {
       this.imgList = response.data;
       if (this.imgList.length > this.showNum) {
         this.showList = this.imgList.slice(0, this.showNum);
