@@ -9,6 +9,19 @@
         <div class="canvas-wrapper">
           <drawing-board ref="canvas"></drawing-board>
         </div>
+        <form id="upload-file"
+              method="post"
+              enctype="multipart/form-data">
+          <label for="imageUpload"
+                 class="upload-label">
+            Choose...
+          </label>
+          <input type="file"
+                 name="file"
+                 @change="contentUpload"
+                 id="imageUpload"
+                 accept=".png, .jpg, .jpeg">
+        </form>
         <button class="btn"
                 @click="clearCanvas">
           <span class="clear"></span>
@@ -30,7 +43,30 @@
             </div>
           </div>
         </div>
-        <div class="hint">Choose a style above</div>
+        <div class="style-hint">
+          Choose a style or
+          <form id="upload-style"
+                method="post"
+                enctype="multipart/form-data">
+            <label for="styleUpload"
+                   class="upload-label">
+              upload yours
+            </label>
+            <input type="file"
+                   name="file"
+                   @change="styleUpload"
+                   id="styleUpload"
+                   accept=".png, .jpg, .jpeg">
+          </form>
+        </div>
+
+        <div v-if="userStyle"
+             class="upload-style">
+          <div class="remove"
+               @click="removeUserStyle">Remove</div>
+          <img :src="userStyleSrc"
+               alt="">
+        </div>
 
         <div class="options">
           <toggle-button :value="!highReality"
@@ -144,6 +180,10 @@ export default {
       selectedId: 1,
       sessionId: "",
 
+      userContent: false,
+      userStyle: false,
+      userStyleSrc: "",
+
       highReality: false,
       highQuality: false,
 
@@ -181,6 +221,7 @@ export default {
   methods: {
     clearCanvas() {
       this.$refs.canvas.clearCanvas();
+      this.userContent = false;
     },
 
     onSelectImage(id) {
@@ -218,43 +259,59 @@ export default {
       styleData.append("highReality", this.highReality);
       styleData.append("highQuality", this.highQuality);
 
-      // Display overlay
-      this.modalContent = "Waiting for a few seconds...";
-      this.showWaitModal = true;
+      styleData.append("userContent", this.userContent);
+      styleData.append("userStyle", this.userStyle);
+      styleData.append("contentData", src);
+      styleData.append("styleData", this.userStyleSrc);
 
-      axiosPix({
-        url: "/getPixFromData",
-        method: "POST",
-        data: pixData,
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      })
-        .then(response => {
-          // console.log(response.data)
-          this.resultPix = response.data;
-          this.resultSrc = this.resultPix;
-          this.modalContent = "Styling the picture...";
-          return axiosStyle({
-            url: "/getStyleFromId",
-            method: "POST",
-            data: styleData,
-            headers: {
-              "Content-Type": "multipart/form-data"
-            }
-          });
-        })
-        .then(response => {
+      if (this.userContent) {
+        this.modalContent = "Stylizing your picture...";
+        this.showWaitModal = true;
+
+        axiosStyle({
+          url: "/stylize-with-data",
+          method: "POST",
+          data: styleData,
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        }).then(response => {
           this.showWaitModal = false;
           this.resultStyle = response.data;
           this.resultSrc = this.resultStyle;
-        })
-        .catch(function(response) {
-          this.modalContent = "Ooops, something wrong...";
-          setTimeout(function() {
-            this.showWaitModal = false;
-          }, 3000);
         });
+      } else {
+        this.modalContent = "Waiting for a few seconds...";
+        this.showWaitModal = true;
+
+        axiosPix({
+          url: "/getPixFromData",
+          method: "POST",
+          data: pixData,
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+          .then(response => {
+            // console.log(response.data)
+            this.resultPix = response.data;
+            this.resultSrc = this.resultPix;
+            this.modalContent = "Styling the picture...";
+            return axiosStyle({
+              url: "/stylize-with-data",
+              method: "POST",
+              data: styleData,
+              headers: {
+                "Content-Type": "multipart/form-data"
+              }
+            });
+          })
+          .then(response => {
+            this.showWaitModal = false;
+            this.resultStyle = response.data;
+            this.resultSrc = this.resultStyle;
+          });
+      }
     },
 
     toggleReality() {
@@ -309,6 +366,73 @@ export default {
             });
         }
       });
+    },
+
+    contentUpload(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+
+      var reader = new FileReader();
+
+      reader.onload = e => {
+        var canvas = document.querySelector("#canvas");
+        var ctx = canvas.getContext("2d");
+
+        var w = canvas.width;
+        var h = canvas.height;
+        var img = new Image();
+        img.onload = function() {
+          ctx.drawImage(img, 0, 0, w, h);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(files[0]);
+      e.target.value = "";
+      this.userContent = true;
+    },
+
+    styleUpload(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = e => {
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+        var imgSize = 256;
+        var image = new Image();
+
+        canvas.width = imgSize;
+        canvas.height = imgSize;
+
+        var imgData;
+
+        image.onload = function() {
+          ctx.drawImage(image, 0, 0, imgSize, imgSize);
+          let imgData = canvas.toDataURL("image/png");
+          vm.setUserStyleSrc(imgData);
+        };
+        image.src = e.target.result;
+      };
+      reader.readAsDataURL(files[0]);
+      e.target.value = "";
+    },
+
+    setUserStyleSrc(data) {
+      this.userStyleSrc = data;
+      this.userStyle = true;
+      this.submitDisable = false;
+
+      var submit = this.$el.querySelector(".submit");
+      submit.scrollIntoView({ behavior: "smooth" });
+    },
+
+    removeUserStyle() {
+      this.userStyle = false;
+      this.userStyleSrc = "";
+      this.submitDisable = true;
     }
   }
 };
@@ -464,33 +588,39 @@ input[type="file"] {
   display: none;
 }
 
+.style-hint form {
+  display: inline;
+}
+
+.style-hint {
+  font-weight: 200;
+  font-size: 0.8rem;
+  color: #95a5a6;
+}
+
+.style-hint .upload-label {
+  text-decoration: underline;
+}
+
 .upload-label {
-  display: inline-block;
-  border: none;
-  border-radius: 0.3em;
-  padding: 0.5em 1em;
-  background: #008cba;
-  color: white;
-  font-size: 1em;
-  font-weight: 400;
-  font-family: inherit;
-  text-align: center;
-  text-decoration: none;
-  transition: all 0.4s;
   cursor: pointer;
+  font-weight: 200;
+  font-size: 0.8rem;
+  color: #95a5a6;
 }
 
-.upload-label:hover {
-  background: #34495e;
+.upload-style img {
+  width: 150px;
+  height: 150px;
+  margin: 0.5rem;
 }
 
-.upload-label .upload {
-  background: url("../assets/icons/upload.svg") no-repeat top left;
-  background-size: contain;
+.upload-style .remove {
   cursor: pointer;
-  display: inline-block;
-  height: 1rem;
-  width: 1rem;
+  font-weight: 200;
+  font-size: 0.8rem;
+  color: #95a5a6;
+  text-decoration: underline;
 }
 
 span.clear {

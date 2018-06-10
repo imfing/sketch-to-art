@@ -30,34 +30,50 @@ def index():
     return 'style transfer server running'
 
 
-@app.route('/getStyleFromId', methods=['GET', 'POST'])
-def getStyle():
+@app.route('/stylize-with-data', methods=['GET', 'POST'])
+def stylize_with_data():
     if request.method == 'POST':
+        print(request.form)
         sessionId = request.form['id']
         styleId = request.form['style']
         highReality = request.form['highReality']
         highQuality = request.form['highQuality']
 
-        adain = False
-        alpha = 0.6
-        content_size = 256
-        if highReality == 'true':
-            adain = True
-            alpha = 0.8
-        if highQuality == 'true':
-            content_size = 512
+        userContent = request.form['userContent']
+        userStyle = request.form['userStyle']
+        contentData = request.form['contentData']
+        styleData = request.form['styleData']
 
-        pix_out = './output/pix/'+sessionId+'.png'
+        content_size, alpha, adain = get_style_params(highQuality, highReality)
+
+        content_path = './output/pix/'+sessionId+'.png'
+        style_path = './styles/'+styleId+'.jpg'
         style_out = './output/style/'+sessionId+'.png'
 
+        if userContent == 'true':
+            content_path = './uploads/'+sessionId+'.png'
+            image_data = re.sub('^data:image/.+;base64,', '', contentData)
+            image_content = Image.open(BytesIO(base64.b64decode(image_data)))
+            image_content.save(content_path)
+
+        if userStyle == 'true':
+            style_data = re.sub('^data:image/.+;base64,', '', styleData)
+            image_style = Image.open(BytesIO(base64.b64decode(image_data)))
+            style_path = os.path.join(
+                './uploads', '{}_style.png'.format(sessionId))
+            image_style.save(style_path)
+
         stylize.get_stylize_image(
-            pix_out, './styles/'+styleId+'.jpg', style_out,
+            content_path, style_path, style_out,
             content_size=content_size, alpha=alpha, adain=adain)
+
+        if userStyle == 'true':
+            os.remove(style_path)
 
         with open(os.path.join(os.path.dirname(__file__), style_out), 'rb') as f:
             return u"data:image/png;base64," + base64.b64encode(f.read()).decode('ascii')
 
-    return 'invalid request'
+    return ''
 
 
 @app.route('/getGalleryList', methods=['GET'])
@@ -91,6 +107,19 @@ def submitToGallery():
             return 'False'
 
     return 'submitToGallery'
+
+
+def get_style_params(highQuality, highReality):
+    adain = False
+    alpha = 0.6
+    content_size = 256
+    if highReality == 'true':
+        adain = True
+        alpha = 0.8
+    if highQuality == 'true':
+        content_size = 512
+
+    return content_size, alpha, adain
 
 
 if __name__ == '__main__':

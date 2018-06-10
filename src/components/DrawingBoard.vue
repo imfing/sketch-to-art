@@ -49,7 +49,8 @@ export default {
       if (this.mouse.down) {
         var c = document.getElementById("canvas");
         var ctx = c.getContext("2d");
-        ctx.clearRect(0, 0, this.width, this.height);
+        // ctx.clearRect(0, 0, this.width, this.height);
+        ctx.lineCap = "round";
         ctx.lineTo(this.currentMouse.x, this.currentMouse.y);
         ctx.strokeStyle = this.lineColor;
         ctx.lineWidth = this.lineWidth;
