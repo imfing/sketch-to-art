@@ -444,12 +444,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#wrapper h1 {
+  margin: 1rem 0rem;
+}
+
+#wrapper h3 {
+  margin-top: 0.2rem;
+  margin-bottom: 0.8rem;
+}
+
 .container {
   display: flex;
 }
 
 .section {
-  margin: 1rem 2rem;
+  margin: 0.5rem 1rem;
   flex-grow: 1;
   width: 35%;
 }
@@ -467,9 +476,8 @@ export default {
 }
 
 .image-container .image-item {
-  width: 100px;
-  height: 100px;
-  margin: 5px;
+  width: 25%;
+  margin: 3px;
   padding: 2px;
   border: 1px solid #ddd;
   border-radius: 4px;
