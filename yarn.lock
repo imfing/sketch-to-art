@@ -5390,10 +5390,6 @@ vue-router@^3.0.1:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-3.0.1.tgz#d9b05ad9c7420ba0f626d6500d693e60092cc1e9"
 
-vue-slider-component@^2.7.1:
-  version "2.7.1"
-  resolved "http://registry.npm.taobao.org/vue-slider-component/download/vue-slider-component-2.7.1.tgz#d880ea92d883bb428fbcc67a86afe6b0d3a27621"
-
 vue-style-loader@^3.0.0, vue-style-loader@^3.0.1:
   version "3.1.2"
   resolved "http://registry.npm.taobao.org/vue-style-loader/download/vue-style-loader-3.1.2.tgz#6b66ad34998fc9520c2f1e4d5fa4091641c1597a"
