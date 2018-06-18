@@ -70,10 +70,10 @@
         </div>
 
         <div class="options">
-          <toggle-button :value="!highReality"
+          <toggle-button :value="highReality"
                          :color="{checked: '#cb8589', unchecked: '#0984e3'}"
                          :sync="true"
-                         :labels="{checked: 'More Style', unchecked: 'More Real'}"
+                         :labels="{checked: 'More Real', unchecked: 'More Style'}"
                          :width="80"
                          :height="20"
                          @change="toggleReality" />
@@ -185,7 +185,7 @@ export default {
       userStyle: false,
       userStyleSrc: "",
 
-      highReality: false,
+      highReality: true,
       highQuality: false,
 
       showStyle: true,
