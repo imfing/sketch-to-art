@@ -130,8 +130,6 @@ export default {
     this.width = this.$el.clientWidth;
     // this.height = this.$el.clientHeight;
     this.height = this.width;
-
-    console.log(this.enabled)
   }
 };
 </script>

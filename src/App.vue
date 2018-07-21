@@ -12,7 +12,7 @@
     <router-view/>
 
     <!-- github corner -->
-    <a href="https://developer.microsoft.com"
+    <a href="https://github.com/mtobeiyf/sketch-to-art"
        target="_blank"
        class="github-corner"
        aria-label="View source on Github">

@@ -209,11 +209,28 @@ export default {
       Math.random()
         .toString(36)
         .substr(2, 9);
+
+    let that = this;
     axiosPix
       .get("/")
+      .catch(function(error) {
+        that.$swal({
+          title: "Something wrong...",
+          text:
+            "Server not responding, check your Internet connection first. You can view details in the About page. To experience the app, please contact the author for help.",
+          icon: "warning",
+          buttons: {
+            cancel: "Got it"
+          }
+        });
+        console.log("pix server error");
+      })
       .then(response => {
         console.log(response.data);
         return axiosStyle.get("/");
+      })
+      .catch(function(error) {
+        console.log("style server error");
       })
       .then(response => {
         console.log(response.data);
