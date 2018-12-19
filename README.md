@@ -6,7 +6,7 @@
 
 > You could be an artist with AI
 
-[**[Live Demo]**](https://dip.imfing.com)
+[**[Live Demo]**](https://dip.imfing.com) *Note: Only frontend is available now*
 
 ## Introduction
 
