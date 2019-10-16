@@ -33,8 +33,8 @@ def vgg_from_t7(t7_file, target_layer=None):
             weight = module.weight.transpose([2,3,1,0])
             bias = module.bias
             x = Conv2D(filters, kernel_size, padding='valid', activation=None, name=name,
-                        kernel_initializer=lambda shape: K.constant(weight, shape=shape),
-                        bias_initializer=lambda shape: K.constant(bias, shape=shape),
+                        kernel_initializer=lambda shape, dtype: K.constant(weight, shape=shape, dtype='float32'),
+                        bias_initializer=lambda shape, dtype: K.constant(bias, shape=shape, dtype='float32'),
                         trainable=False)(x)
         elif module._typename == b'nn.ReLU':
             x = Activation('relu', name=name)(x)
