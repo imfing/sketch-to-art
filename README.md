@@ -8,9 +8,8 @@
 
 [**[Live Demo]**](https://dip.imfing.com) *Note: Only frontend is available now*
 
-Or you can [**Run with Docker**](#run-with-docker)
+Or you can [**Run with Docker**](#run-with-docker) in minutes 
 
----
 
 * [Introduction](#introduction)
 * [Run with Docker](#run-with-docker)
@@ -125,21 +124,17 @@ Open your favorite browser at `http://localhost:8080`, the site is there.
 
 ## Acknowledgments
 
-This is a project of **Digital Image Processing** taught by Dr. Jia Yan.
+This is the final project of *Digital Image Processing* instructed by Prof. Jia Yan.
 
-[WCT-TF](https://github.com/eridgd/WCT-TF)
-
-[pix2pix-tensorflow](https://github.com/affinelayer/pix2pix-tensorflow)
-
-[pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
-
-[Neural-Style-Transfer-Papers](https://github.com/ycjing/Neural-Style-Transfer-Papers)
-
-[Vue.js](https://vuejs.org/)
+* [WCT-TF](https://github.com/eridgd/WCT-TF)
+* [pix2pix-tensorflow](https://github.com/affinelayer/pix2pix-tensorflow)
+* [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
+* [Neural-Style-Transfer-Papers](https://github.com/ycjing/Neural-Style-Transfer-Papers)
+* [Vue.js](https://vuejs.org/)
 
 ## Authors
 
-Shuaibin Zhang, Haoran Su, Tangbo Liu, Xin Fu
+Xin Fu, Shuaibin Zhang, Tangbo Liu, Haoran Su
 
 ## License
 Copyright © 2018, Fing
