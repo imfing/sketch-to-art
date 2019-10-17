@@ -16,10 +16,10 @@ from PIL import Image
 # Flask utils
 from flask import Flask, redirect, url_for, request, render_template, Response, send_file, make_response
 from gevent.pywsgi import WSGIServer
-# from flask_cors import CORS
+from flask_cors import CORS
 
 app = Flask(__name__)
-# CORS(app)
+CORS(app)
 
 @app.route('/', methods=['GET'])
 def index():

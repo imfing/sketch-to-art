@@ -12,17 +12,19 @@ if [ ! -d wct ]; then
     wget "https://github.com/mtobeiyf/sketch-to-art/releases/download/v0.1-models/vgg_normalised.t7"
     wget "https://github.com/mtobeiyf/sketch-to-art/releases/download/v0.1-models/models.zip"
     unzip models.zip
+    rm models.zip
     cd ..
 else
     echo "wct directory exists...skip"
 fi
 
 # Download trained pix2pix model
-if [ ! -e pix2pix.zip ]; then
+if [ ! -d pix2pix ]; then
     wget "https://github.com/mtobeiyf/sketch-to-art/releases/download/v0.1/pix2pix.zip"
     unzip pix2pix.zip
+    rm pix2pix.zip
 else
-    echo "pix2pix model exists...skip"
+    echo "pix2pix directory exists...skip"
 fi
 
 echo "Finish downloading..."
