@@ -8,6 +8,23 @@
 
 [**[Live Demo]**](https://dip.imfing.com) *Note: Only frontend is available now*
 
+Or you can [**Run with Docker**](#run-with-docker)
+
+---
+
+* [Introduction](#introduction)
+* [Run with Docker](#run-with-docker)
+* [Theories](#theories)
+  + [Sketch Reconstruction](#sketch-reconstruction)
+  + [Style Transfer](#style-transfer)
+* [Manual Installation](#manual-installation)
+  + [Backend](#backend)
+  + [Frontend](#frontend)
+* [Acknowledgments](#acknowledgments)
+* [Authors](#authors)
+* [License](#license)
+
+
 ## Introduction
 
 This project can transform your casual sketch to beautiful painting/artwork using modern AI technology.
@@ -17,6 +34,24 @@ This project can transform your casual sketch to beautiful painting/artwork usin
 <p align="center">
   <img src="https://user-images.githubusercontent.com/5097752/41201770-a6b9f35a-6cf0-11e8-8711-916f769c1c9d.jpg" alt="">
 </p>
+
+## Run with Docker
+
+With **[Docker](https://www.docker.com)**, you can quickly build and run the entire application in minutes :whale:
+
+```bash
+# 1. First, clone the repo
+git clone https://github.com/mtobeiyf/sketch-to-art.git
+cd sketch-to-art
+
+# 2. Build Docker image
+docker build -t sketch-to-art:dev .
+
+# 3. Run!
+docker run -it --rm -p 8080:8080 -p 5001:5001 -p 5002:5002 sketch-to-art:dev
+```
+
+Then, go to **localhost:8080** and play with the demo! :tada:
 
 ## Theories
 
@@ -38,7 +73,7 @@ It became known to us with the appearance of [Prisma](https://prisma-ai.com/) ap
   <img src="https://user-images.githubusercontent.com/5097752/41201821-f40a5cb6-6cf1-11e8-917f-779f4055ffc5.jpg" width="400px" alt="">
 </p>
 
-## Installation
+## Manual Installation
 
 ### Backend
 
@@ -50,22 +85,18 @@ Navigate to the `server` directory and all the files concerning the service and 
 
 #### Prerequisites
 
-Make sure you have Python installed. And the following key packages are needed:
+Make sure you have Python installed, and some packages are needed: tensorflow, keras, pillow, flask, gevent.
+You can use pip to install them:
 
-```
-tensorflow
-keras
-pillow
-flask
-gevent
+```bash
+pip install -r server/requirements.txt
 ```
 
 #### Run
 
-Simply run with python:
-
-```
-$ python app_xxx.py
+```bash
+# Simply run with python
+python app_xxx.py
 ```
 
 And you could see the output indicating the port it's listening (5001 and 5002). Go to `http://localhost:5001` and you should see the returned information.
@@ -79,14 +110,14 @@ You should installed:
 
 ```
 # Clone the repo
-$ git clone git@github.com:mtobeiyf/sketch-to-art.git
-$ cd sketch-to-art
+git clone git@github.com:mtobeiyf/sketch-to-art.git
+cd sketch-to-art
 
 # Install dependencies
-$ yarn  # or npm install
+yarn  # or npm install
 
 # Run
-$ yarn dev  # or npm run dev
+yarn dev  # or npm run dev
 ```
 
 Open your favorite browser at `http://localhost:8080`, the site is there.
