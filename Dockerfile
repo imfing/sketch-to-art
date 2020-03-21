@@ -16,9 +16,9 @@ ADD server/requirements.txt /tmp/
 RUN pip3 --no-cache-dir install -r /tmp/requirements.txt
 
 # Install node packages
-ADD ./package.json ./yarn.* /tmp/
-RUN cd /tmp && yarn
-RUN cd /usr/src/app && ln -s /tmp/node_modules
+# ADD ./package.json ./yarn.* /tmp/
+# RUN cd /tmp && yarn
+# RUN cd /usr/src/app && ln -s /tmp/node_modules
 
 # Download models
 ADD server/models/download_models.sh /tmp/models/
