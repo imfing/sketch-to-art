@@ -22,6 +22,7 @@ RUN pip3 --no-cache-dir install -r /tmp/requirements.txt
 
 # Download models
 ADD server/models/download_models.sh /tmp/models/
+RUN chmod +x /tmp/models/download_models.sh
 RUN cd /tmp/models && ./download_models.sh
 
 # Add project and change directory
