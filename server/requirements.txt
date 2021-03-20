@@ -10,7 +10,7 @@ greenlet==0.4.15
 grpcio==1.24.1
 h5py==2.10.0
 itsdangerous==1.1.0
-Jinja2==2.10.3
+Jinja2==2.11.3
 Keras==2.3.1
 Keras-Applications==1.0.8
 Keras-Preprocessing==1.1.0
